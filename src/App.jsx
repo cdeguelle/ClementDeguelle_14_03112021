@@ -1,7 +1,7 @@
 import { React } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import CreateEmployee from './pages/Create-employee'
-import EmployeeList from './pages/Employee-list'
+import CreateEmployee from './pages/CreateEmployee'
+import EmployeeList from './pages/EmployeeList'
 import GlobalStyle from './utils/style/GlobalStyle'
 
 const App = () => {  
