@@ -1,8 +1,8 @@
-import userReducer from '../features/user'
+import employeeReducer from '../features/employees'
 import { configureStore } from '@reduxjs/toolkit'
 
 export default configureStore({
     reducer: {
-      user: userReducer
+      employee: employeeReducer
     }
 })
