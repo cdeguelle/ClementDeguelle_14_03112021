@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components"
 
 const StyledGlobalStyle = createGlobalStyle`
     html {
-        font-family: Avenir, Helvetica, Arial, sans-serif;
+        font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
@@ -16,6 +16,7 @@ const StyledGlobalStyle = createGlobalStyle`
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        position: relative;
     }
 `
 

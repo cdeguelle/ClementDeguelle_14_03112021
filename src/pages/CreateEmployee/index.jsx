@@ -5,9 +5,27 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as employeeActions from '../../features/employees'
 import close from '../../assets/close.png'
+import logo from '../../assets/Wealth-health-logo.png'
+import { DatePicker, StateSelectMenu, DepartmentSelectMenu, Modal } from 'hrnet-components-library/dist/lib'
 
 const Body = styled.body`
     margin-bottom: 50px;
+`
+
+const Logo1 = styled.img`
+    position: absolute;
+    z-index: -1;
+    top: -15%;
+    left: -20%;
+    height: 600px;
+`
+
+const Logo2 = styled.img`
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    right: -20%;
+    height: 600px;
 `
 
 const Title = styled.h1`
@@ -41,63 +59,13 @@ const Fieldset = styled.fieldset`
     margin-top: 10px;
 `
 
-const Select = styled.select`
-    width: 208px;
-    height: 25px;
-`
-
-const Button = styled.button`
-
-`
-
-const Confirmation = styled.div`
-    vertical-align: middle;
-    position: relative;
-    z-index: 2;
-    max-width: 500px;
-    box-sizing: border-box;
-    width: 90%;
-    background: #fff;
-    padding: 15px 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #000;
-`
-
-const Blocker = styled.div`
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    z-index: 1;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: #000;
-    background-color: rgba(0,0,0,0.75);
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    & ::before {
-        content: "";
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        margin-right: -0.05em;
-    }
-`
-
-const ConfirmationClose = styled.img`
-    position: absolute;
-    top: -12.5px;
-    right: -12.5px;
-    display: block;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
+const Button = styled.input`
+    margin-top: 1rem;
+    background-color: #657D11;
+    border-radius: 5px;
+    color: #FFF;
+    padding: 10px;
+    width: 150px;
 `
 
 function CreateEmployee() {
@@ -111,6 +79,7 @@ function CreateEmployee() {
     const [zipCode, setZipCode] = useState('')
     const [department, setDepartment] = useState('Sales')
     const [employeeCreated, setEmployeeCreated] = useState(false)
+    const [employeeNotCreated, setEmployeeNotCreated] = useState(false)
     const dispatch = useDispatch()
 
     const employee = {
@@ -125,13 +94,27 @@ function CreateEmployee() {
         department: department
     }
 
+    const departments = [
+        'Sales',
+        'Marketing',
+        'Engineering',
+        'Human Resources',
+        'Legal'
+    ]
+
     const buttonFunctions = () => {
-        dispatch(employeeActions.addEmployee(employee))
-        setEmployeeCreated(true)
+        if (firstName !== '' && lastName !== '' && dateOfBirth !== '' && startDate !== '' && street !== '' && city !== '' && zipCode !== '') {
+            dispatch(employeeActions.addEmployee(employee))
+            setEmployeeCreated(true)
+        } else {
+            setEmployeeNotCreated(true)
+        }
     }
 
     return (
         <Body>
+            <Logo1 src={logo} alt='Wealth-health logo' />
+            <Logo2 src={logo} alt='Wealth-health logo' />
             <Title>
                 <h1>HRnet</h1>
             </Title>
@@ -146,11 +129,9 @@ function CreateEmployee() {
                     <Label for="last-name">Last Name</Label>
                     <Input type="text" onChange={(e) => setLastName(e.target.value)} />
 
-                    <Label for="date-of-birth">Date of Birth</Label>
-                    <Input type="text" onChange={(e) => setDateOfBirth(e.target.value)} />
+                    <DatePicker label={'Date of birth'} setDate={setDateOfBirth} style={{margin: '2rem 0'}} />
 
-                    <Label for="start-date">Start Date</Label>
-                    <Input type="text" onChange={(e) => setStartDate(e.target.value)} />
+                    <DatePicker label={'Start date'} setDate={setStartDate} style={{margin: '2rem 0'}} />
 
                     <Fieldset>
                         <legend>Adress</legend>
@@ -161,39 +142,23 @@ function CreateEmployee() {
                         <Label for="city">City</Label>
                         <Input type="text" onChange={(e) => setCity(e.target.value)} />
 
-                        <Label for="state">State</Label>
-                        <Select name="state" onChange={(e) => setState(e.target.value)}>
-                            {states.map((state) => (
-                                <option value={state.abbreviation}>{state.name}</option>
-                            ))}
-                        </Select>
+                        <StateSelectMenu options={states} onChangeFunction={setState} label={'State'} labelFor={'state'} />
 
                         <Label for="zip-code">Zip Code</Label>
                         <Input type="number" onChange={(e) => setZipCode(e.target.value)} />
                     </Fieldset>
 
-                    <Label for="department">Department</Label>
-                    <Select name="department" onChange={(e) => setDepartment(e.target.value)}>
-                        <option>Sales</option>
-                        <option>Marketing</option>
-                        <option>Engineering</option>
-                        <option>Human Resources</option>
-                        <option>Legal</option>
-                    </Select>
+                    <DepartmentSelectMenu options={departments} onChangeFunction={setDepartment} label={'Department'} labelFor={'department'} />
                 </Form>
 
-                <Button onClick={() => buttonFunctions()}>Save</Button>
+                <Button type="submit" value="Save" onClick={() => buttonFunctions()} />
             </Container>
             {employeeCreated ? (
-                <Blocker>
-                    <Confirmation>
-                        Employee created !
-                        <ConfirmationClose src={close} onClick={() => setEmployeeCreated(false)}></ConfirmationClose>
-                    </Confirmation>
-                </Blocker>
-            ) : (
-                ''
-            )}
+                <Modal onClickFunction={() => setEmployeeCreated(false)} contentMessage={'Employee created'} closeIcon={close} />
+            ) : null}
+            {employeeNotCreated ? (
+                <Modal onClickFunction={() => setEmployeeNotCreated(false)} contentMessage={'You have to fill all fields'} closeIcon={close} />
+            ) : null}
         </Body>
     )
 }
