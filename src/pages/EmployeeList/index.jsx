@@ -24,8 +24,8 @@ const Container = styled.div`
 `
 
 function CreateEmployee() {
-    const employees = useSelector(selectEmployee).employees
-
+    const employees = useSelector(selectEmployee)
+    
     return (
         <Body>
             <Container>

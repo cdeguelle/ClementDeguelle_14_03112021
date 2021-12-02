@@ -124,7 +124,7 @@ function CreateEmployee() {
             <Container>
                 <StyledLink to="/employee-list">View Current Employees</StyledLink>
                 <h2>Create Employee</h2>
-                <div >
+                <div>
                     <Label htmlFor="first-name">First Name</Label>
                     <Input id='first-name' type="text" onChange={(e) => setFirstName(e.target.value)} />
 
