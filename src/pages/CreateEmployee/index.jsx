@@ -5,30 +5,37 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as employeeActions from '../../features/employees'
 import close from '../../assets/close.png'
-import logo from '../../assets/Wealth-health-logo.png'
 import { DatePicker, StateSelectMenu, DepartmentSelectMenu, Modal } from 'hrnet-components-library/dist/lib'
 
-const Body = styled.body`
+const Body = styled.div`
     margin-bottom: 50px;
 `
 
-const Logo1 = styled.img`
+const Logo1 = styled.div`
     position: absolute;
     z-index: -1;
-    top: -15%;
-    left: -20%;
-    height: 600px;
+    top: 0;
+    left: 0;
+    display : inline-block;
+    height : 0;
+    width : 0;
+    border-top : 500px solid #657D11;
+    border-right : 500px solid transparent;
 `
 
-const Logo2 = styled.img`
+const Logo2 = styled.div`
     position: absolute;
     z-index: -1;
     bottom: 0;
-    right: -20%;
-    height: 600px;
+    right: 0;
+    display : inline-block;
+    height : 0;
+    width : 0;
+    border-bottom: 500px solid #657D11;
+    border-left: 500px solid transparent;
 `
 
-const Title = styled.h1`
+const Title = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,10 +46,6 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`
-
-const Form = styled.form`
-
 `
 
 const Label = styled.label`
@@ -59,7 +62,7 @@ const Fieldset = styled.fieldset`
     margin-top: 10px;
 `
 
-const Button = styled.input`
+const Button = styled.button`
     margin-top: 1rem;
     background-color: #657D11;
     border-radius: 5px;
@@ -113,51 +116,51 @@ function CreateEmployee() {
 
     return (
         <Body>
-            <Logo1 src={logo} alt='Wealth-health logo' />
-            <Logo2 src={logo} alt='Wealth-health logo' />
+            <Logo1 />
+            <Logo2 />
             <Title>
                 <h1>HRnet</h1>
             </Title>
             <Container>
                 <StyledLink to="/employee-list">View Current Employees</StyledLink>
                 <h2>Create Employee</h2>
-                <Form action='#' >
-                    <Label for="first-name">First Name</Label>
-                    <Input type="text" onChange={(e) => setFirstName(e.target.value)} />
+                <div >
+                    <Label htmlFor="first-name">First Name</Label>
+                    <Input id='first-name' type="text" onChange={(e) => setFirstName(e.target.value)} />
 
                     
-                    <Label for="last-name">Last Name</Label>
-                    <Input type="text" onChange={(e) => setLastName(e.target.value)} />
+                    <Label htmlFor="last-name">Last Name</Label>
+                    <Input id='last-name' type="text" onChange={(e) => setLastName(e.target.value)} />
 
-                    <DatePicker label={'Date of birth'} setDate={setDateOfBirth} style={{margin: '2rem 0'}} />
+                    <DatePicker id={'date-of-birth'} label={'Date of birth'} setDate={setDateOfBirth} style={{margin: '2rem 0'}} />
 
-                    <DatePicker label={'Start date'} setDate={setStartDate} style={{margin: '2rem 0'}} />
+                    <DatePicker id={'start-date'} label={'Start date'} setDate={setStartDate} style={{margin: '2rem 0'}} />
 
                     <Fieldset>
                         <legend>Adress</legend>
 
-                        <Label for="street">Street</Label>
-                        <Input type="text" onChange={(e) => setStreet(e.target.value)} />
+                        <Label htmlFor="street">Street</Label>
+                        <Input id='street' type="text" onChange={(e) => setStreet(e.target.value)} />
 
-                        <Label for="city">City</Label>
-                        <Input type="text" onChange={(e) => setCity(e.target.value)} />
+                        <Label htmlFor="city">City</Label>
+                        <Input id='city' type="text" onChange={(e) => setCity(e.target.value)} />
 
                         <StateSelectMenu options={states} onChangeFunction={setState} label={'State'} labelFor={'state'} />
 
-                        <Label for="zip-code">Zip Code</Label>
-                        <Input type="number" onChange={(e) => setZipCode(e.target.value)} />
+                        <Label htmlFor="zip-code">Zip Code</Label>
+                        <Input id='zip-code' type="number" onChange={(e) => setZipCode(e.target.value)} />
                     </Fieldset>
 
                     <DepartmentSelectMenu options={departments} onChangeFunction={setDepartment} label={'Department'} labelFor={'department'} />
-                </Form>
+                </div>
 
-                <Button type="submit" value="Save" onClick={() => buttonFunctions()} />
+                <Button onClick={() => buttonFunctions()}>Save</Button>
             </Container>
             {employeeCreated ? (
                 <Modal onClickFunction={() => setEmployeeCreated(false)} contentMessage={'Employee created'} closeIcon={close} />
             ) : null}
             {employeeNotCreated ? (
-                <Modal onClickFunction={() => setEmployeeNotCreated(false)} contentMessage={'You have to fill all fields'} closeIcon={close} />
+                <Modal onClickFunction={() => setEmployeeNotCreated(false)} contentMessage={'Employee not created, you have to fill all fields'} closeIcon={close} />
             ) : null}
         </Body>
     )

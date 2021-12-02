@@ -5995,10 +5995,10 @@
     "readable-stream" "^2.0.1"
     "wbuf" "^1.1.0"
 
-"hrnet-components-library@^0.8.0":
-  "integrity" "sha512-00pjGcloWvRylFhEbuIpSGxiCx02/Ldcmi28XZGaQFDRtv7qYZXZd1OoxkUNWb4L46+6X3B4BPaKHWzdYnRaqA=="
-  "resolved" "https://registry.npmjs.org/hrnet-components-library/-/hrnet-components-library-0.8.0.tgz"
-  "version" "0.8.0"
+"hrnet-components-library@^0.9.0":
+  "integrity" "sha512-lSDZeedJj8j26wbOVegNbpqUU013+eViENNKFKTooeas6+11kORjMicZV9PUb7Yk08HuEWN/e9MWSgYNLttGiQ=="
+  "resolved" "https://registry.npmjs.org/hrnet-components-library/-/hrnet-components-library-0.9.0.tgz"
+  "version" "0.9.0"
   dependencies:
     "@date-io/date-fns" "^2.11.0"
     "@date-io/dayjs" "^2.11.0"
