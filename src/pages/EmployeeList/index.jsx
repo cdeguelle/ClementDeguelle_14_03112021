@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { selectEmployee } from '../../utils/selectors'
 import { DataTable } from 'hrnet-components-library'
 
-const Body = styled.body`
+const Body = styled.div`
     background-color: #F5F5F5;
     min-height: 100vh;
 `
