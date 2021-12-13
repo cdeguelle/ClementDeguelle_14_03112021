@@ -30,7 +30,11 @@ function CreateEmployee() {
         <Body>
             <Container>
                 <Title>Current employees</Title>
-                    <DataTable data={employees} paperStyle={{ width: '90%', overflow: 'hidden' }} tableStyle={{ maxHeight: 440 }} rowsPerPageOptions={[10, 25, 100]} />
+                    {employees === [] ? (
+                        <h2>No current employee</h2>
+                    ) : (
+                        <DataTable data={employees} paperStyle={{ width: '90%', overflow: 'hidden' }} tableStyle={{ maxHeight: 440 }} rowsPerPageOptions={[10, 25, 100]} />
+                    )}
                 <StyledLink style={{marginTop: '20px'}} to="/">Home</StyledLink>
             </Container>
         </Body>

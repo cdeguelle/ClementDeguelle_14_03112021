@@ -1,1 +1,1 @@
-export const selectEmployee = (state) => JSON.parse(localStorage.getItem('test2'))
+export const selectEmployee = (state) => JSON.parse(localStorage.getItem('employeeList'))
